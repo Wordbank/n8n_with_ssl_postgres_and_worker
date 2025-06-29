@@ -114,6 +114,7 @@ services:
       - "--api=true"
       - "--api.insecure=true"
       - "--api.dashboard=true"
+      - "--log.level=DEBUG"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.websecure.address=:443"
