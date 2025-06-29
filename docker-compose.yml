@@ -37,8 +37,8 @@ services:
     image: "caddy:2.10"
     volumes:
       - caddy_data:/data
-      - ${DATA_FOLDER}/caddy_config:/config
-      - ${DATA_FOLDER}/caddy_config/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_config:/config
+      - ${DATA_FOLDER}/caddy/Caddyfile:/etc/caddy/Caddyfile
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
@@ -100,4 +100,4 @@ volumes:
   db_storage:
   redis_storage:
   caddy_data:
-    external: true
+  caddy_config:
