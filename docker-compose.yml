@@ -2,24 +2,24 @@ x-shared: &shared
   restart: always
   image: docker.n8n.io/n8nio/n8n
   environment:
-    - DB_TYPE=postgresdb
-    - DB_POSTGRESDB_HOST=postgres
-    - DB_POSTGRESDB_PORT=5432
     - DB_POSTGRESDB_DATABASE=${POSTGRES_DB}
-    - DB_POSTGRESDB_USER=${POSTGRES_NON_ROOT_USER}
+    - DB_POSTGRESDB_HOST=postgres
     - DB_POSTGRESDB_PASSWORD=${POSTGRES_NON_ROOT_PASSWORD}
+    - DB_POSTGRESDB_PORT=5432
+    - DB_POSTGRESDB_USER=${POSTGRES_NON_ROOT_USER}
+    - DB_TYPE=postgresdb
     - EXECUTIONS_MODE=queue
-    - QUEUE_BULL_REDIS_HOST=redis
-    - QUEUE_HEALTH_CHECK_ACTIVE=true
     - N8N_ENCRYPTION_KEY=${ENCRYPTION_KEY}
-
     - N8N_HOST=${SUBDOMAIN}.${DOMAIN_NAME}
+    - N8N_LOG_LEVEL=debug
+    - N8N_MFA_ENABLED=true
     - N8N_PORT=5678
     - N8N_PROTOCOL=https
-    - NODE_ENV=production
-    - N8N_PATH
     - N8N_RUNNERS_ENABLED=true
+    - NODE_ENV=production
     - OFFLOAD_MANUAL_EXECUTIONS_TO_WORKERS=true
+    - QUEUE_BULL_REDIS_HOST=redis
+    - QUEUE_HEALTH_CHECK_ACTIVE=true
     - WEBHOOK_URL=https://${SUBDOMAIN}.${DOMAIN_NAME}
   links:
     - postgres
