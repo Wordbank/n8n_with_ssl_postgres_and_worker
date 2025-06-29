@@ -37,12 +37,7 @@ services:
     image: "busybox:1.37"
     volumes:
       - ${DATA_FOLDER}/.n8n:/home/node/.n8n
-    command:
-      [
-        "sh",
-        "-c",
-        "chown -R 1000:1000 /home/node/.n8n && chmod 0600 /home/node/.n8n/config",
-      ]
+    command: ["sh", "-c", "chown -R 1000:1000 /home/node/.n8n"]
   n8n:
     depends_on:
       initContainer:
