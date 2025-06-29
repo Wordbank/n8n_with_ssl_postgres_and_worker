@@ -38,7 +38,7 @@ services:
     volumes:
       - caddy_data:/data
       - caddy_config:/config
-      - ${DATA_FOLDER}/caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy:/etc/caddy
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
