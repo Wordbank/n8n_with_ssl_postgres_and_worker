@@ -33,6 +33,17 @@ x-shared: &shared
       condition: service_healthy
 
 services:
+  caddy:
+    image: "caddy:2.10"
+    volumes:
+      - caddy_data:/data
+      - ${DATA_FOLDER}/caddy_config:/config
+      - ${DATA_FOLDER}/caddy_config/Caddyfile:/etc/caddy/Caddyfile
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+    restart: unless-stopped
+
   initContainer:
     image: "busybox:1.37"
     volumes:
@@ -102,26 +113,8 @@ services:
       timeout: 5s
       retries: 10
 
-  traefik:
-    image: "traefik:3.4"
-    volumes:
-      - ${DATA_FOLDER}/letsencrypt:/letsencrypt
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    ports:
-      - "0.0.0.0:80:80"
-      - "0.0.0.0:443:443"
-    command:
-      - "--api=true"
-      - "--api.insecure=true"
-      - "--api.dashboard=true"
-      - "--log.level=DEBUG"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.websecure.address=:443"
-      - "--certificatesresolvers.mytlschallenge.acme.tlschallenge=true"
-      - "--certificatesresolvers.mytlschallenge.acme.email=${SSL_EMAIL}"
-      - "--certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json"
-
 volumes:
   db_storage:
   redis_storage:
+  caddy_data:
+    external: true
